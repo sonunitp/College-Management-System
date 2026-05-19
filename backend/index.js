@@ -20,6 +20,10 @@ app.use("/api/student/auth", require("./routes/Student Api/credential.route"));
 app.use("/api/faculty/auth", require("./routes/Faculty Api/credential.route"));
 app.use("/api/admin/auth", require("./routes/Admin Api/credential.route"));
 
+app.use("/api/student/details", require("./routes/Student Api/details.route"));
+app.use("/api/faculty/details", require("./routes/Faculty Api/details.route"));
+app.use("/api/admin/details", require("./routes/Admin Api/details.route"));
+
 app.listen(port, () => {
   console.log(`Server Listening On http://localhost:${port}`);
 });
