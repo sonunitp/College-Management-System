@@ -36,6 +36,9 @@ app.use("/api/branch", require("./routes/Other Api/branch.route"));
 app.use("/api/attendance", require("./routes/Other Api/attendence.route"));
 app.use("/api/assignments", require("./routes/Other Api/assignment.route"));
 
+app.use("/api/admin/feedback", require("./routes/Other Api/feedback.route"));
+app.use("/api/student/feedback", require("./routes/Other Api/feedback.route"));
+
 app.listen(port, () => {
   console.log(`Server Listening On http://localhost:${port}`);
 });
