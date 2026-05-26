@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseApiURL } from "../../baseUrl";
 import SubmitAssignment from "./SubmitAssignment";
-import { use } from "react";
 
 export default function Dashboard({id}) {
     const studentId = id;

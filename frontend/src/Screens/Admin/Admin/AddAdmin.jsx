@@ -49,7 +49,7 @@ const AddAdmin = () => {
         if (response.data.success) {
           toast.success(response.data.message);
           axios
-            .post(`${baseApiURL()}/Admin/auth/register`, {
+            .post(`${baseApiURL()}/admin/auth/register`, {
               loginid: data.employeeId,
               password: data.employeeId,
             })

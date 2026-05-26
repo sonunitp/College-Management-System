@@ -6,9 +6,10 @@ const {
   updateCurriculum, 
   deleteCurriculum 
 } = require("../../controllers/Other/curriculum.controller.js");
+const upload = require("../../middlewares/multer.middleware.js");
 
 router.post("/getCurriculum", getCurriculum);
-router.post("/addCurriculum", addCurriculum);
+router.post("/addCurriculum", upload.single("curriculum"), addCurriculum);
 router.put("/updateCurriculum/:id", updateCurriculum);
 router.delete("/deleteCurriculum/:id", deleteCurriculum);
 
