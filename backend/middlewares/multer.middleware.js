@@ -1,13 +1,18 @@
 const multer = require("multer");
-
 const path = require("path");
 const fs = require("fs");
 
-// Ensure media directory exists at project root
-const mediaPath = path.join(__dirname, "../media");  // Change path to be relative to backend root
+const mediaPath =
+  process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+    ? "/tmp/cms-media"
+    : path.join(__dirname, "media");
 
-if (!fs.existsSync(mediaPath)) {
+try {
+  if (!fs.existsSync(mediaPath)) {
     fs.mkdirSync(mediaPath, { recursive: true });
+  }
+} catch (err) {
+  console.warn("Media directory not writable:", err.message);
 }
 
 const storage = multer.diskStorage({

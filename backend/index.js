@@ -4,12 +4,25 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 
-connectToMongo();
-
 const app = express();
 const port = process.env.PORT || 5001;
 
-app.use(cors({ origin: process.env.FRONTEND_API_LINK }));
+const allowedOrigins = (process.env.FRONTEND_API_LINK || "http://localhost:3000")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -39,6 +52,8 @@ app.use("/api/assignments", require("./routes/Other Api/assignment.route"));
 app.use("/api/admin/feedback", require("./routes/Other Api/feedback.route"));
 app.use("/api/student/feedback", require("./routes/Other Api/feedback.route"));
 
-app.listen(port, () => {
-  console.log(`Server Listening On http://localhost:${port}`);
+connectToMongo().then(() => {
+  app.listen(port, () => {
+    console.log(`Server Listening On http://localhost:${port}`);
+  });
 });
